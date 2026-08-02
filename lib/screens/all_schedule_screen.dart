@@ -181,6 +181,7 @@ class _AllScheduleScreenState extends State<AllScheduleScreen> {
                         teams: teams,
                         myTeam: widget.myTeam,
                         holidays: holidays,
+                        onEditShift: _editShift,
                       )),
                       _Legend(),
                     ],
@@ -282,6 +283,7 @@ class _WeekBlock extends StatelessWidget {
   final List<String> teams;
   final String myTeam;
   final Map<int, String> holidays;
+  final void Function(String team, DateTime date) onEditShift;
 
   const _WeekBlock({
     required this.week,
@@ -290,6 +292,7 @@ class _WeekBlock extends StatelessWidget {
     required this.teams,
     required this.myTeam,
     required this.holidays,
+    required this.onEditShift,
   });
 
   @override
@@ -413,7 +416,7 @@ class _WeekBlock extends StatelessWidget {
                   final hasOverride = ShiftCalculator.hasOverride(date);
                   return Expanded(
                     child: GestureDetector(
-                      onLongPress: () => _editShift(team, date),
+                      onLongPress: () => onEditShift(team, date),
                       child: Center(
                         child: Stack(
                           alignment: Alignment.center,
